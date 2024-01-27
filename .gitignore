@@ -14,9 +14,9 @@
 !single_face.obj
 !ryugu_test.obj
 
-/test/TPM_Ryugu/*
-/test/TPM_non-uniform_thermoparams/*
-/test/TPM_Didymos/*
+/test/TPM_Ryugu/output
+/test/TPM_non-uniform_thermoparams/output
+/test/TPM_Didymos/output
 
 # Keep these test files
 !TPM_Ryugu.jl

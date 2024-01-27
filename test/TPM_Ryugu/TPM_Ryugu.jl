@@ -1,5 +1,9 @@
 # See https://github.com/Astroshaper/Astroshaper-examples/tree/main/TPM_Ryugu for more information.
 @testset "TPM_Ryugu" begin
+    DIR_OUTPUT = joinpath(@__DIR__, "output")
+    rm(DIR_OUTPUT; recursive=true, force=true)
+    mkpath(DIR_OUTPUT)
+
     msg = """\n
     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     |                    Test: TPM_Ryugu                     |
@@ -101,8 +105,10 @@
     face_ID = [1, 2, 3, 4, 10]  # Face indices to save subsurface temperature
 
     result = AsteroidThermoPhysicalModels.run_TPM!(stpm, ephem, times_to_save, face_ID)
-    
-    ##= Save TPM result =##
-    dirpath = "./TPM_Ryugu"
-    AsteroidThermoPhysicalModels.export_TPM_results(dirpath, result)
+
+    @testset "Save TPM result" begin
+        AsteroidThermoPhysicalModels.export_TPM_results(DIR_OUTPUT, result)
+        @test isfile(joinpath(DIR_OUTPUT, "data.csv"))
+        @test isfile(joinpath(DIR_OUTPUT, "face_temp_0000001.csv"))
+    end
 end
